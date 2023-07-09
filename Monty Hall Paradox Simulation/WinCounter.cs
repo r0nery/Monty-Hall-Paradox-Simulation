@@ -11,7 +11,7 @@ namespace Monty_Hall_Paradox_Simulation
         private int wins = 0;
         private int total = 0;
 
-        private double winPercentage()
+        private double GetWinPercentage()
         {
             return  wins / ((double)total / 100);
         }
@@ -24,7 +24,7 @@ namespace Monty_Hall_Paradox_Simulation
         }
         public void PrintStatistics()
         {
-            double success = winPercentage();
+            double success = GetWinPercentage();
             Console.WriteLine($"Всего игр: {total}\tИз них побед: {wins}\tУспешность: {success}%");
         }
     }
