@@ -24,9 +24,9 @@
                     break;
                 case ConsoleKey.D2:
                 case ConsoleKey.NumPad2:
-                    Console.WriteLine("Введите количество симуляций");
-                    // TODO: обработать некорректный ввод
+                    Console.WriteLine("\n\tВведите количество симуляций");
                     int runs = Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
                     RunSimulation(runs);
                     break;
             }
@@ -72,6 +72,7 @@
                 if (continueKey == ConsoleKey.N)
                     runs = int.MaxValue;
             }
+            Console.Write("\n\n");
             winCounter.PrintStatistics();
         }
         static void RunSimulation(int runs)
@@ -86,7 +87,7 @@
                 badCounter.AddResult(Simulation.BadDescision(set, choice));
                 goodCounter.AddResult(Simulation.GoodDescision(set, choice));
             }
-            Console.WriteLine("\n0Результаты плохой стратегии:");
+            Console.WriteLine("\nРезультаты плохой стратегии:");
             badCounter.PrintStatistics();
             Console.WriteLine("\nРезультаты хорошей стратегии:");
             goodCounter.PrintStatistics();
