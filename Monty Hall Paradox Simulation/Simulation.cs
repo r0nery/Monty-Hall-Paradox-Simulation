@@ -42,8 +42,7 @@ namespace Monty_Hall_Paradox_Simulation
 
         public static bool PlayerDescision(Set set, int choice)
         {
-            int open = 0;
-            //Console.WriteLine("Вы выбрали дверь №" + (choice+1));
+            int open = -1;
 
             if (set.LoosingNums.Contains(choice))
             {
@@ -59,6 +58,7 @@ namespace Monty_Hall_Paradox_Simulation
             }
 
             int newChoice = -1;
+
             for (int i = 0; i < 3; i++)
             {
                 if (i != choice && i != open)
@@ -67,18 +67,25 @@ namespace Monty_Hall_Paradox_Simulation
                     break;
                 }                    
             }
-
+            bool[] openRooms = new bool[3] {false, false, false};
+            openRooms[open]=true;
+            SetVisualizer setVisualizer = new SetVisualizer(set, openRooms, choice);
+            setVisualizer.PrintSet();
             string chaneChoiceMessage =
-                "Вы выбрали дверь №" + (choice+1) +
-                "\nВедущий открывает дверь №" + (open+1) + ", за ней коза. Хотите поменять решение на "+(newChoice+1)+"?\ny/n";
+                "\n\nВы выбрали дверь №" + (choice+1) +
+                "\nВедущий открывает дверь №" + (open+1) + ", за ней коза.\nХотите поменять решение на "+(newChoice+1)+"?\t[y/n]";
             ConsoleKey key = KeyInputWaiter.WaitForKey(new List<ConsoleKey>() { ConsoleKey.Y, ConsoleKey.N }, chaneChoiceMessage);
 
             switch (key)
-            {
-                case ConsoleKey.Y:
-                    return set.Check(newChoice);   
+            {                  
                 case ConsoleKey.N:
+                    setVisualizer = new SetVisualizer(set, new bool[]{true, true, true}, choice);
+                    setVisualizer.PrintSet();
                     return set.Check(choice);
+                case ConsoleKey.Y:
+                    setVisualizer = new SetVisualizer(set, new bool[] { true, true, true }, newChoice);
+                    setVisualizer.PrintSet();
+                    return set.Check(newChoice);
             }
 
             return false;
