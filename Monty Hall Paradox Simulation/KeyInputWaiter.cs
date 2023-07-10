@@ -11,13 +11,16 @@ namespace Monty_Hall_Paradox_Simulation
         public static ConsoleKey WaitForKey (List<ConsoleKey> keys, string message)
         {
             ConsoleKey key;
+            Console.WriteLine(message);
             do
             {
-                Console.WriteLine(message);
                 key = Console.ReadKey().Key;
-                Console.Clear();
+                Console.Write("\b \b");
             }
             while (!keys.Contains(key));
+
+            Console.Clear();
+            
             return key;
         }
     }

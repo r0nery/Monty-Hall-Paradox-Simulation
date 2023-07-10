@@ -6,11 +6,11 @@
         static List<ConsoleKey> modeSelectKeys = new List<ConsoleKey>()
         { ConsoleKey.D1, ConsoleKey.D2, ConsoleKey.NumPad1, ConsoleKey.NumPad2 };
         const string modeSelectMessage =
-            "Выберите режим:\n1 - Хочу поиграть сам\t2 - Хочу запустить симуляцию\n";
+            "\n\tВыберите режим:\n\n1 - Хочу поиграть сам\t2 - Хочу запустить симуляцию\n";
         static List<ConsoleKey> roomSelectKeys = new List<ConsoleKey>()
         { ConsoleKey.D1, ConsoleKey.D2, ConsoleKey.D3, ConsoleKey.NumPad1, ConsoleKey.NumPad2, ConsoleKey.NumPad3 };
         const string roomSelectMessage =
-            "Выберите комнату: 1, 2 или 3";
+            "\n\nВыберите комнату: 1, 2 или 3";
 
         static void Main(string[] args)
         {
@@ -34,10 +34,14 @@
         static void PlayYourself()
         {
             WinCounter winCounter = new WinCounter();
+            
             int runs = 1;
-            Set set;
+            
             while (runs < int.MaxValue)
             {
+                Set set = new Set();
+                SetVisualizer setVisualizer = new SetVisualizer(set, new bool[] { false, false, false }, -1);
+                setVisualizer.PrintSet();
                 int choice = 0;
                 ConsoleKey choiceKey = KeyInputWaiter.WaitForKey(roomSelectKeys, roomSelectMessage);
                 switch (choiceKey)
@@ -56,15 +60,15 @@
                         break;
                 }
 
-                set = new Set();
+                
                 bool result = Simulation.PlayerDescision(set, choice);
                 winCounter.AddResult(result);
                 if (result)
-                    Console.WriteLine("Ура, победа!\n");
-                else Console.WriteLine("Вы проиграли\n");
+                    Console.WriteLine("\n\nУра, победа!\n");
+                else Console.WriteLine("\n\nВы проиграли\n");
 
                 ConsoleKey continueKey = KeyInputWaiter.WaitForKey
-                    (new List<ConsoleKey>() { ConsoleKey.Y, ConsoleKey.N }, "Продолжить? y/n");
+                    (new List<ConsoleKey>() { ConsoleKey.Y, ConsoleKey.N }, "Продолжить? [y/n]");
                 if (continueKey == ConsoleKey.N)
                     runs = int.MaxValue;
             }
