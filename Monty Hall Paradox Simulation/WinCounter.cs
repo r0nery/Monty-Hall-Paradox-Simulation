@@ -25,7 +25,7 @@ namespace Monty_Hall_Paradox_Simulation
         public void PrintStatistics()
         {
             double success = GetWinPercentage();
-            Console.WriteLine($"\n\nВсего игр: {total}\tИз них побед: {wins}\tУспешность: {success}%");
+            Console.WriteLine($"Всего игр: {total}\nИз них побед: {wins}\nУспешность: {success}%");
         }
     }
 }
